@@ -1,0 +1,6 @@
+cd existing-project
+git init
+git add --all
+git commit -m "Initial Commit"
+git remote add origin http://wang.zhen@172.24.118.134:7990/scm/tes/maven-hello-world.git
+git push -u origin master
