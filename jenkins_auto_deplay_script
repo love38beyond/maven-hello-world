@@ -1,0 +1,34 @@
+#定义宿主机目录
+WORK_SPACE=~/docker/jenkins/workspace/hello-world
+
+#git clone最新代码
+cd ./docker/jenkins/workspace
+git clone https://github.com/love38beyond/maven-hello-world.git
+cp maven-hello-world/* -rf ./
+rm -rf maven-hello-world/
+
+
+#删除可能已经启动的容器名为mymaven的容器
+if docker ps -a | grep -i mymaven;then
+	docker rm -f mymaven
+fi
+
+#启动maven容器，命名为mymaven，设置宿主机和容器的挂载点，mvn package给工程打包
+docker run --name mymaven -v $WORK_SPACE:/usr/src/maven-hello-world/hello-world -w /usr/src/maven-hello-world/hello-world maven mvn package
+
+#拷贝容器中打好的war包到主机制定目录
+docker cp mymaven:/usr/src/maven-hello-world/hello-world/target/hello-world.war ~/docker/maven-hello-world
+
+#新建dummy文件
+touch ~/docker/maven-hello-world/dummy
+
+#构建基于tomcat的镜像，命名为hello-world
+docker build -t wxp/hello-world ~/docker/maven-hello-world
+
+#删除可能启动的hello容器
+if docker ps -a | grep -i hello;then
+	docker rm -f hello
+fi
+
+#启动tomcat容器，命令为hello
+docker run -d -p 8090:8080 --name hello wxp/hello-world
