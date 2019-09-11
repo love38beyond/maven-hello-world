@@ -1,0 +1,9 @@
+version: '3.4'
+services:
+  jenkins_hello:
+    image: IMAGE_LATEST
+    deploy:
+      restart_policy:
+        condition: on-failure
+    ports:
+      - 8081:80
