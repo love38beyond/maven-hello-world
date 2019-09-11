@@ -25,7 +25,7 @@ if docker ps -a | grep -i mymaven;then
 fi
 
 #启动maven容器，命名为mymaven，设置宿主机和容器的挂载点，mvn package给工程打包，-w设置工作目录
-docker run --name mymaven -v /root/data/jenkins/workspace/maven-hello-world/hello-world:/usr/src/maven-hello-world/hello-world -w /usr/src/maven-hello-world/hello-world maven mvn package
+docker run --name mymaven -v /root/data/jenkins/workspace/jenkins_demo/hello-world:/usr/src/jenkins_demo/hello-world -w /usr/src/jenkins_demo/hello-world maven mvn package
 
 #创建新镜像
 docker build -t $IMAGE . && \
