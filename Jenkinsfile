@@ -5,7 +5,7 @@ pipeline {
       agent any
       steps {
         echo 'Deploying'
-        sh './deploy_hello.sh'
+        sh 'chmod a+x deploy_hello.sh && ./deploy_hello.sh'
       }
     }
   }
