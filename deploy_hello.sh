@@ -41,3 +41,11 @@ sed -i s%IMAGE_LATEST%$IMAGE%g docker-compose.hello.yml && \
 
 # 使用 docker stack 启动服务
 docker stack deploy -c docker-compose.hello.yml $CONTAINER
+
+#删除可能启动的hello容器
+#if docker ps -a | grep -i hello;then
+#	docker rm -f hello
+#fi
+
+#启动tomcat容器，命令为hello
+#docker run -d -p 8090:8080 --name hello wxp/hello-world
