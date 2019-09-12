@@ -6,4 +6,4 @@ services:
       restart_policy:
         condition: on-failure
     ports:
-      - 8081:80
+      - 8081:8080
